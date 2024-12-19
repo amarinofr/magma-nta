@@ -1,0 +1,31 @@
+{
+  "collectionName": "components_magma_people",
+  "info": {
+    "displayName": "Person",
+    "icon": "alien",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "Name": {
+      "type": "string",
+      "required": true
+    },
+    "Role": {
+      "type": "string"
+    },
+    "Bio": {
+      "type": "text"
+    },
+    "Photo": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    }
+  }
+}

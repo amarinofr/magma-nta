@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_home_mood_images",
+  "info": {
+    "displayName": "Mood image",
+    "icon": "picture",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "Image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    }
+  }
+}

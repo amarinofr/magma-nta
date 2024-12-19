@@ -1,0 +1,33 @@
+{
+  "collectionName": "components_flash_flash_tattoos",
+  "info": {
+    "displayName": "Flash Tattoos",
+    "icon": "brush",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "Dimensions": {
+      "type": "string"
+    },
+    "Price": {
+      "type": "string"
+    },
+    "Image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "exhibition": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::exhibition.exhibition"
+    }
+  }
+}

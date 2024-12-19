@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_global_fa_qs",
+  "info": {
+    "displayName": "FAQs",
+    "icon": "information"
+  },
+  "options": {},
+  "attributes": {
+    "Question": {
+      "type": "string"
+    },
+    "Answer": {
+      "type": "blocks"
+    }
+  }
+}
