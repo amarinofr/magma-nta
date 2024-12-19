@@ -1,0 +1,96 @@
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# Testing
+coverage
+
+# Nuxt.js
+.nuxt
+.nitro
+.cache
+.output
+.env
+dist
+
+# Strapi
+.env
+.env.local
+.env.*.local
+license.txt
+exports
+*.cache
+build
+.strapi-updater.json
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Editor directories and files
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# TypeScript
+*.tsbuildinfo
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Local env files
+.env*.local
+.env.development
+.env.test
+.env.production
+
+# Misc
+.DS_Store
+*.pem
+
+# Database
+*.sqlite
+*.sqlite3
+*.db
+
+# Generated files
+public/uploads/*
+!public/uploads/.gitkeep
+
+# Frontend build
+.output/
+.nuxt/
+dist/
+
+# Backend build
+build/
+.cache/
+
+# Map files
+*.map
+
+# Misc
+*.log
+.DS_Store
