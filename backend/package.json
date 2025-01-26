@@ -39,5 +39,8 @@
   },
   "strapi": {
     "uuid": "6c574799-e7a6-4784-9ca6-d3393c7cd348"
+  },
+  "devDependencies": {
+    "cloudinary": "^2.5.1"
   }
 }
