@@ -3,13 +3,15 @@
     <section class="pt-40">
         <h2 v-if="locale === 'en'" class="title-full">All exhibitions</h2>
         <h2 v-else class="title-full">Todas as exposições</h2>
-        <div class="mt-12">
+        <div v-if="exhibitions.length > 0" class="mt-12">
             <div
                 v-for="exhibition in exhibitionsLoaded"
                 :key="exhibition.id"
                 class="exhibition_link"
-                ref="exhibitionItem">
+                ref="exhibitionItem"
+            >
                 <NuxtLink
+                    v-if="exhibition.slug"
                     :to="`${localePath(`/exhibitions/${exhibition.slug}`)}`"
                     class="flex flex-col md:flex-row justify-between px-3 md:px-10 items-center border-b-2 border-black py-4 relative"
                     :class="
@@ -22,7 +24,8 @@
                               } hover:bg-${exhibition.Color}`
                             : ''
                     "
-                    data-name="exhibition_link">
+                    data-name="exhibition_link"
+                >
                     <div class="title-md mb-5 md:mb-0">
                         {{ exhibition.Name }}
                     </div>
@@ -35,7 +38,8 @@
                             <Dates
                                 :start-date="exhibition.StartDate"
                                 :end-date="exhibition.EndDate"
-                                :date-range="true" />
+                                :date-range="true"
+                            />
                         </div>
                     </div>
                     <NuxtImg
@@ -43,9 +47,14 @@
                         class="absolute left-0 bottom-0 opacity-0 pointer-events-none w-[200px] h-[200px]"
                         :src="exhibition.cover_img.url"
                         :alt="exhibition.Name + ' exhibition cover'"
-                        data-name="exhibition_cover" />
+                        data-name="exhibition_cover"
+                    />
                 </NuxtLink>
             </div>
+        </div>
+        <div v-else>
+            <h2 v-if="locale === 'en'" class="title-full">No exhibitions</h2>
+            <h2 v-else class="title-full">Nenhuma exposição</h2>
         </div>
         <button
             class="w-full text-center py-10 border border-black uppercase text-teaser-lg"

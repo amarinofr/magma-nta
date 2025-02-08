@@ -4,34 +4,44 @@
     <div id="page-wrap" class="home">
         <section
             id="intro"
-            class="w-full min-h-screen container flex flex-col items-center justify-center pb-20">
+            class="w-full min-h-screen container flex flex-col items-center justify-center pb-20"
+        >
             <div
-                class="relative flex flex-col min-[1112px]:flex-row xl:flex-col mt-20 min-[1112px]:mt-0 lg:mt-[7rem] xl:mt-20 md:ml-10 xl:ml-[10.995vw]">
-                <h1 class="title-xl md:w-4/12">
+                class="relative flex flex-col min-[1112px]:flex-row xl:flex-col mt-20 min-[1112px]:mt-0 lg:mt-[7rem] xl:mt-20 md:ml-10 xl:ml-[10.995vw]"
+            >
+                <h1 v-if="home.data.BigTitle" class="title-xl md:w-4/12">
                     {{ home.data.BigTitle }}
                 </h1>
                 <div
-                    class="text-body mt-5 min-[1112px]:mt-10 w-10/12 sm:w-4/12 md:w-7/12 min-[1112px]:w-4/12 ml-10 md:ml-10 xl:ml-[30.613vw]">
-                    <RichText :blocks="home.data.Intro" />
+                    class="text-body mt-5 min-[1112px]:mt-10 w-10/12 sm:w-4/12 md:w-7/12 min-[1112px]:w-4/12 ml-10 md:ml-10 xl:ml-[30.613vw]"
+                >
+                    <RichText
+                        v-if="home.data.Intro"
+                        :blocks="home.data.Intro"
+                    />
                 </div>
             </div>
 
             <div
-                class="absolute bottom-5 2xl:bottom-10 left-0 right-0 hidden md:flex flex-col md:flex-row gap-6 xl:gap-12 justify-center pointer-events-none items-end mt-5 xl:mt-20">
+                class="absolute bottom-5 2xl:bottom-10 left-0 right-0 hidden md:flex flex-col md:flex-row gap-6 xl:gap-12 justify-center pointer-events-none items-end mt-5 xl:mt-20"
+            >
                 <nuxt-link
                     class="button button--green"
+                    :class="{ active: $route.path.includes('exhibitions') }"
                     :to="localePath('/exhibitions')"
                     ><span v-if="i18n.locale.value === 'en'"> Gallery </span>
                     <span v-else> Galeria </span></nuxt-link
                 >
                 <nuxt-link
                     class="button button--red"
+                    :class="{ active: $route.path.includes('events') }"
                     :to="localePath('/events')"
                     ><span v-if="i18n.locale.value === 'en'"> Events </span>
                     <span v-else> Eventos </span></nuxt-link
                 >
                 <nuxt-link
                     class="button button--blue"
+                    :class="{ active: $route.path.includes('tattoos') }"
                     :to="localePath('/tattoos')"
                     ><span v-if="i18n.locale.value === 'en'"> Tattoos </span>
                     <span v-else> Tatuagens </span></nuxt-link
@@ -40,9 +50,11 @@
 
             <div class="w-full">
                 <div
-                    class="sm:max-w-[30vw] min-[1112px]:max-w-[18.634vw] md:absolute right-5 bottom-10 md:bottom-20 2xl:bottom-10 mt-10 md:mt-0">
+                    class="sm:max-w-[30vw] min-[1112px]:max-w-[18.634vw] md:absolute right-5 bottom-10 md:bottom-20 2xl:bottom-10 mt-10 md:mt-0"
+                >
                     <ul
-                        class="text-rotating-xs border border-black bg-black [&_li]:text-yellow py-2 overflow-hidden">
+                        class="text-rotating-xs border border-black bg-black [&_li]:text-yellow py-2 overflow-hidden"
+                    >
                         <li>
                             <ul class="flex gap-2 loop" data-speed="fastest">
                                 <li v-if="i18n.locale.value === 'en'"
@@ -69,6 +81,7 @@
                         </li>
                     </ul>
                     <Swiper
+                        v-if="sortedEvents.length > 0"
                         :space-between="0.15"
                         :modules="[Autoplay, Pagination]"
                         :autoplay="{ delay: 4000, disableOnInteraction: false }"
@@ -78,18 +91,22 @@
                             bulletClass: 'swiper-pagination-bullet',
                             clickable: true,
                         }"
-                        class="text-center children:px-5">
+                        class="text-center children:px-5"
+                    >
                         <SwiperSlide
                             v-for="event in sortedEvents"
-                            :key="event.id">
+                            :key="event.id"
+                        >
                             <nuxt-link :to="'/events/' + event.id">
                                 <p
-                                    class="text-teaser-lg border-2 border-black py-5">
+                                    class="text-teaser-lg border-2 border-black py-5"
+                                >
                                     {{ event.Name }}
                                 </p>
 
                                 <div
-                                    class="text-date py-2 border-2 -mt-[2px] border-black font-medium">
+                                    class="text-date py-2 border-2 -mt-[2px] border-black font-medium"
+                                >
                                     <Dates :start-date="event.StartDate" />
                                 </div>
                             </nuxt-link>
@@ -105,11 +122,14 @@
         <section class="bg-black pb-24 overflow-x-hidden">
             <div class="loop flex gap-10 flex-nowrap w-fit" data-speed="slow">
                 <div
-                    class="w-full overflow-hidden flex flex-nowrap text-nowrap gap-10 py-5">
+                    class="w-full overflow-hidden flex flex-nowrap text-nowrap gap-10 py-5"
+                >
                     <div
+                        v-if="latestExhibition"
                         v-for="i in 4"
                         :key="i"
-                        class="text-rotating-lg text-yellow flex gap-10">
+                        class="text-rotating-lg text-yellow flex gap-10"
+                    >
                         <span>
                             {{ latestExhibition.Name }}
                         </span>
@@ -125,22 +145,25 @@
                 Current Exhibition
             </h2>
             <h2 v-else class="title-full text-white">Exposição Atual</h2>
-            <div class="container mt-12 md:mt-24">
+            <div v-if="latestExhibition" class="container mt-12 md:mt-24">
                 <NuxtLink
                     :to="`${localePath(
                         `/exhibitions/${latestExhibition.slug}`
                     )}`"
-                    class="">
+                    class=""
+                >
                     <NuxtImg
+                        v-if="latestExhibition.cover_img.url"
                         provider="strapi"
                         format="webp"
                         class="w-full aspect-[210/297] object-cover"
-                        :src="latestExhibition.cover_img.url" />
+                        :src="latestExhibition.cover_img.url"
+                    />
                 </NuxtLink>
             </div>
         </section>
 
-        <section class="mt-10 md:mt-24">
+        <section v-if="exhibitions.length > 0" class="mt-10 md:mt-24">
             <h2 v-if="i18n.locale.value === 'en'" class="title-full">
                 Past Exhibitions
             </h2>
@@ -150,8 +173,10 @@
                     v-for="exhibition in exhibitionsLoaded"
                     :key="exhibition.id"
                     class="exhibition_link"
-                    ref="exhibitionItem">
+                    ref="exhibitionItem"
+                >
                     <NuxtLink
+                        v-if="exhibition.slug"
                         :to="`${localePath(`/exhibitions/${exhibition.slug}`)}`"
                         class="flex flex-col md:flex-row justify-between px-3 md:px-10 items-center border-b-2 border-black py-4 relative"
                         :class="
@@ -164,7 +189,8 @@
                                   } hover:bg-${exhibition.Color}`
                                 : ''
                         "
-                        data-name="exhibition_link">
+                        data-name="exhibition_link"
+                    >
                         <div class="title-md mb-5 md:mb-0">
                             {{ exhibition.Name }}
                         </div>
@@ -177,15 +203,19 @@
                                 <Dates
                                     :start-date="exhibition.StartDate"
                                     :end-date="exhibition.EndDate"
-                                    :date-range="true" />
+                                    :date-range="true"
+                                />
                             </div>
                         </div>
                         <NuxtImg
+                            v-if="exhibition.cover_img.url"
+                            provider="strapi"
                             format="webp"
                             class="absolute left-0 bottom-0 opacity-0 pointer-events-none w-[200px] h-[200px]"
                             :src="exhibition.cover_img.url"
                             :alt="exhibition.Name + ' exhibition cover'"
-                            data-name="exhibition_cover" />
+                            data-name="exhibition_cover"
+                        />
                     </NuxtLink>
                 </div>
             </div>
@@ -197,23 +227,30 @@
             >
         </section>
 
-        <section class="min-h-screen bg-green overflow-hidden relative flex">
+        <section
+            v-if="home.data.Mood.length > 0"
+            class="min-h-screen bg-green overflow-hidden relative flex"
+        >
             <div
                 class="flex gap-[5vw] items-center h-full w-max inset-0 absolute loop"
-                data-speed="fast">
+                data-speed="fast"
+            >
                 <div
                     v-for="mood in home.data.Mood"
                     :key="mood.id"
-                    class="h-fit flex items-center aspect-square my-20">
+                    class="h-fit flex items-center aspect-square my-20"
+                >
                     <div
-                        class="w-[80vw] min-h-[80vw] md:w-[30rem] md:min-h-[30rem] relative">
+                        class="w-[80vw] min-h-[80vw] md:w-[30rem] md:min-h-[30rem] relative"
+                    >
                         <div
                             v-if="mood.Quote || mood.Name || mood.URL"
                             :class="[
                                 'bg-yellow border-[20px] md:border-[3em] border-white absolute top-0 left-0 w-full h-full flex flex-col justify-end p-5 md:px-20 md:pb-10',
                                 { 'cursor-pointer': mood.URL },
                             ]"
-                            @click="mood.URL && openLink(mood.URL)">
+                            @click="mood.URL && openLink(mood.URL)"
+                        >
                             <div v-if="mood.Quote" class="text-base">
                                 {{ mood.Quote }}
                             </div>
@@ -224,11 +261,15 @@
 
                         <div
                             v-if="mood.Image && mood.Image.url"
-                            class="w-full h-full">
+                            class="w-full h-full"
+                        >
                             <NuxtImg
+                                provider="strapi"
+                                format="webp"
                                 class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-auto object-cover"
-                                :src="`${config.public.strapiUrl}${mood.Image.url}`"
-                                :alt="mood.Title + ' image'" />
+                                :src="mood.Image.url"
+                                :alt="mood.Title + ' image'"
+                            />
                         </div>
                     </div>
                 </div>
@@ -282,8 +323,8 @@ const sortedEvents = computed(() => {
     return events.data
         .slice()
         .sort((a, b) => {
-            const dateA = new Date(a.StartDate).getTime()
-            const dateB = new Date(b.StartDate).getTime()
+            const dateA = new Date(a.attributes.StartDate).getTime()
+            const dateB = new Date(b.attributes.StartDate).getTime()
             return dateA - dateB
         })
         .slice(0, 5)

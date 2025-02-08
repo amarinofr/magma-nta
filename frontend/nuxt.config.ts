@@ -10,7 +10,7 @@ export default defineNuxtConfig({
         '@nuxtjs/i18n',
     ],
     strapi: {
-        url: process.env.STRAPI_URL || 'http://localhost:1337',
+        url: process.env.STRAPI_URL,
         prefix: '/api',
         admin: '/admin',
         version: 'v4',
@@ -24,7 +24,7 @@ export default defineNuxtConfig({
     css: ['~/assets/css/main.css'],
     runtimeConfig: {
         public: {
-            strapiUrl: process.env.STRAPI_URL || 'http://localhost:1337',
+            strapiUrl: process.env.STRAPI_URL,
         },
     },
 
@@ -40,7 +40,7 @@ export default defineNuxtConfig({
 
     image: {
         strapi: {
-            baseURL: process.env.STRAPI_URL || 'http://localhost:1337',
+            baseURL: process.env.STRAPI_URL,
         },
         provider: 'strapi',
         domains: ['localhost'],

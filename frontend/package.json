@@ -6,7 +6,7 @@
         "build": "nuxt build",
         "dev:strapi": "cd ../backend && npm run develop",
         "dev:nuxt": "nuxt dev",
-        "dev": "concurrently \"npm run dev:nuxt\" \"npm run dev:strapi\"",
+        "dev": "npm run dev:nuxt",
         "generate": "nuxt generate",
         "preview": "nuxt preview",
         "postinstall": "nuxt prepare"

@@ -13,14 +13,16 @@
             @mouseleave="stopDragging"
             @touchstart="startDragging"
             @touchmove="onDragging"
-            @touchend="stopDragging">
+            @touchend="stopDragging"
+        >
             <div>
                 <button
                     @click="clearCategories"
                     :class="[
                         'button-small group hover:bg-black hover:text-white [&.active]:bg-red [&.active]:text-white whitespace-nowrap',
                         { active: selectedCategories.length === 0 },
-                    ]">
+                    ]"
+                >
                     <span v-if="locale === 'en'" class="text-nav-sm">All</span>
                     <span v-else class="text-nav-sm">Todos</span>
                 </button>
@@ -31,18 +33,21 @@
                     :class="[
                         'button-small group hover:bg-black hover:text-white [&.active]:bg-red [&.active]:text-white whitespace-nowrap',
                         { active: selectedCategories.includes(category.id) },
-                    ]">
+                    ]"
+                >
                     <span class="text-nav-sm">{{ category.TagName }}</span>
                 </button>
             </div>
         </div>
 
         <div
-            class="grid grid-cols-1 md:grid-cols-3 gap-10 mt-20 px-5 md:px-0 container">
+            class="grid grid-cols-1 md:grid-cols-3 gap-10 mt-20 px-5 md:px-0 container"
+        >
             <div v-for="event in upcomingEvents" :key="event.id" class="">
                 <NuxtLink :to="localePath(`/events/${event.id}`)">
                     <div
-                        class="flex justify-between items-center text-teaser bg-black text-white px-4 py-1">
+                        class="flex justify-between items-center text-teaser bg-black text-white px-4 py-1"
+                    >
                         <Dates
                             class=""
                             v-if="event.StartDate && event.EndDate"
@@ -50,14 +55,16 @@
                             :end-date="event.EndDate"
                             :date-range="true"
                             :abbreviate="true"
-                            :year="true" />
+                            :year="true"
+                        />
                         <Dates
                             v-else-if="event.StartDate"
                             :start-date="event.StartDate"
                             :abbreviate="true"
                             :hour="true"
                             :date-range="false"
-                            :year="true" />
+                            :year="true"
+                        />
 
                         <span v-for="category in event.event_categories">
                             {{ category.tag }}
@@ -65,12 +72,13 @@
                     </div>
                     <div class="text-center aspect-[492/701]">
                         <NuxtImg
-                            class="w-full h-full object-cover"
                             v-if="event.Cover"
-                            :src="
-                                `${config.public.strapiUrl}` + event.Cover.url
-                            "
-                            :alt="event.Cover.alternativeText" />
+                            provider="strapi"
+                            format="webp"
+                            class="w-full h-full object-cover"
+                            :src="event.Cover.url"
+                            :alt="event.Cover.alternativeText"
+                        />
                         <h2 class="title-md text-center">{{ event.Name }}</h2>
                     </div>
                 </NuxtLink>
@@ -91,42 +99,47 @@
             @mouseleave="stopDraggingYears"
             @touchstart="startDraggingYears"
             @touchmove="onDraggingYears"
-            @touchend="stopDraggingYears">
+            @touchend="stopDraggingYears"
+        >
             <li v-for="year in eventYears" :key="year">
                 <button
                     @click="setActiveYear(year)"
                     :class="[
                         'button-small group border-white hover:bg-white hover:text-black',
                         { 'bg-white text-black': activeYear === year },
-                    ]">
+                    ]"
+                >
                     <span class="text-nav-sm">{{ year }}</span>
                 </button>
             </li>
         </ul>
 
         <div
-            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-10 mt-20 container">
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-10 mt-20 container"
+        >
             <div v-for="event in pastEvents" :key="event.id" class="">
-                {{ console.log(event) }}
                 <NuxtLink :to="localePath(`/events/${event.id}`)">
                     <div
-                        class="flex justify-between items-center text-date bg-black text-white px-2 py-1 border border-gray">
+                        class="flex justify-between items-center text-date bg-black text-white px-2 py-1 border border-gray"
+                    >
                         <Dates
                             class="text-center"
                             :start-date="event.StartDate"
                             :end-date="event.EndDate"
                             :date-range="true"
                             :abbreviate="true"
-                            :year="false" />
+                            :year="false"
+                        />
                     </div>
                     <div class="text-center aspect-[492/701]">
                         <NuxtImg
-                            class="w-full h-full object-cover"
                             v-if="event.Cover"
-                            :src="
-                                `${config.public.strapiUrl}` + event.Cover.url
-                            "
-                            :alt="event.Cover.alternativeText" />
+                            provider="strapi"
+                            format="webp"
+                            class="w-full h-full object-cover"
+                            :src="event.Cover.url"
+                            :alt="event.Cover.alternativeText"
+                        />
                         <h2 class="title-md text-center">{{ event.Name }}</h2>
                     </div>
                 </NuxtLink>
@@ -270,8 +283,6 @@ const upcomingEvents = computed(() => {
 
     return filtered
 })
-
-console.log(upcomingEvents.value)
 
 // Add these new refs and methods for year scrolling
 const yearContainer = ref<HTMLElement | null>(null)
