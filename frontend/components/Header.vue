@@ -166,42 +166,6 @@
             </a>
         </div>
 
-        <div v-if="!isHome" class="flex gap-4 header--buttons items-center">
-            <nuxt-link
-                class="button button--green"
-                :class="{ active: isExhibitionsRoute }"
-                :to="localePath('/exhibitions')"
-                ><span v-if="i18n.locale.value === 'en'"> Gallery </span>
-                <span v-else> Galeria </span></nuxt-link
-            >
-            <nuxt-link
-                class="button button--red"
-                :class="{ active: isEventsRoute }"
-                :to="localePath('/events')"
-                ><span v-if="i18n.locale.value === 'en'"> Events </span>
-                <span v-else> Eventos </span></nuxt-link
-            >
-            <nuxt-link
-                class="button button--blue"
-                :class="{ active: isTattoosRoute }"
-                :to="localePath('/tattoos')"
-                ><span v-if="i18n.locale.value === 'en'"> Tattoos </span>
-                <span v-else> Tatuagens </span></nuxt-link
-            >
-            <div
-                v-if="!isHome"
-                class="flex gap-2 text-nav-lg [&_a]:font-bold mix-blend-exclusion w-fit"
-            >
-                <ul>
-                    <li v-for="locale in availableLocales" :key="locale">
-                        <NuxtLink :to="switchLocalePath(locale)">
-                            {{ locale }}
-                        </NuxtLink>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
         <div class="text-sm [&_p]:mb-2 text-right mix-blend-exclusion">
             <p>
                 +351 296 000 000 <br />
