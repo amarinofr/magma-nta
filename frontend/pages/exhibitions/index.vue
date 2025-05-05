@@ -43,6 +43,7 @@
                         </div>
                     </div>
                     <NuxtImg
+                        v-if="exhibition.cover_img"
                         format="webp"
                         class="absolute left-0 bottom-0 opacity-0 pointer-events-none w-[200px] h-[200px]"
                         :src="exhibition.cover_img.url"

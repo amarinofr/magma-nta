@@ -153,7 +153,7 @@
                     class=""
                 >
                     <NuxtImg
-                        v-if="latestExhibition.cover_img.url"
+                        v-if="latestExhibition.cover_img"
                         provider="strapi"
                         format="webp"
                         class="w-full aspect-[210/297] object-cover"
@@ -208,7 +208,7 @@
                             </div>
                         </div>
                         <NuxtImg
-                            v-if="exhibition.cover_img.url"
+                            v-if="exhibition.cover_img"
                             provider="strapi"
                             format="webp"
                             class="absolute left-0 bottom-0 opacity-0 pointer-events-none w-[200px] h-[200px]"

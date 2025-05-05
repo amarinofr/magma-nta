@@ -207,6 +207,7 @@ export interface Exhibition {
         EndDate: string
         Description: Block[] // Using the existing Block type
         slug: string
+        cover_img: StrapiImage
         artists: Array<{
             id: number
             createdAt: string

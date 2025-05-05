@@ -22,9 +22,11 @@
         <div
             class="flex flex-col md:flex-row px-5 md:px-20 py-10 gap-2 md:gap-20"
         >
-            <h2 class="title-xl mb-5 min-w-[28rem]">{{ tattoo.BigTitle }}</h2>
+            <h2 class="title-xl mb-5 min-w-[28rem]" v-if="tattoo?.BigTitle">{{
+                tattoo.BigTitle
+            }}</h2>
             <div class="pt-5 md:pt-20 prose max-w-[41.5rem]">
-                <RichText :blocks="tattoo.Intro" />
+                <RichText v-if="tattoo?.Intro" :blocks="tattoo.Intro" />
                 <a
                     v-if="locale === 'en'"
                     class="button button--blue button--solid mt-10"
@@ -46,9 +48,13 @@
         <div
             class="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-10 container-xl mt-5 md:mt-20"
         >
-            <div v-for="image in tattoo.Instagram" class="aspect-square">
+            <div
+                v-for="image in tattoo?.Instagram"
+                :key="image?.url"
+                class="aspect-square"
+            >
                 <NuxtImg
-                    v-if="image.url"
+                    v-if="image?.url"
                     provider="strapi"
                     format="webp"
                     class="w-full h-full object-cover"
@@ -73,20 +79,28 @@
     </section>
 
     <section class="bg-black py-5 pb-10 text-white">
-        <h2 class="title-full">{{ tattoo.ExhibitionTattoosTitle }}</h2>
+        <h2 class="title-full" v-if="tattoo?.ExhibitionTattoosTitle">{{
+            tattoo.ExhibitionTattoosTitle
+        }}</h2>
         <div
             class="flex flex-col md:flex-row gap-20 container-xl items-center mt-20"
         >
             <div class="w-full md:w-2/6 prose">
-                <RichText :blocks="tattoo.ExhibitionTattoosDescription" />
+                <RichText
+                    v-if="tattoo?.ExhibitionTattoosDescription"
+                    :blocks="tattoo.ExhibitionTattoosDescription"
+                />
             </div>
             <div class="w-4/6">
-                <div class="text-teaser">
+                <div class="text-teaser" v-if="tattoo?.TattooName">
                     {{ tattoo.TattooName }}
                 </div>
-                <div class="flex justify-between">
-                    <span class="title-lg">{{ tattoo.exhibition.Name }}</span>
+                <div class="flex justify-between" v-if="tattoo?.exhibition">
+                    <span class="title-lg" v-if="tattoo.exhibition?.Name">{{
+                        tattoo.exhibition.Name
+                    }}</span>
                     <NuxtLink
+                        v-if="tattoo.exhibition?.slug"
                         :to="`${localePath(
                             `/exhibitions/${tattoo.exhibition.slug}`
                         )}`"
@@ -96,7 +110,7 @@
                         <span v-else>Página da exposição</span>
                     </NuxtLink>
                 </div>
-                <div class="">
+                <div>
                     <div class="relative aspect-[97/48] h-full">
                         <span
                             v-if="locale === 'en'"
@@ -110,7 +124,7 @@
                         >
                         <NuxtImg
                             class="w-full h-full object-cover absolute"
-                            v-if="tattoo.BeforeImage.url"
+                            v-if="tattoo?.BeforeImage?.url"
                             provider="strapi"
                             format="webp"
                             :src="tattoo.BeforeImage.url"
@@ -119,7 +133,7 @@
 
                         <NuxtImg
                             class="w-full h-full object-cover absolute"
-                            v-if="tattoo.AfterImage.url"
+                            v-if="tattoo?.AfterImage?.url"
                             provider="strapi"
                             format="webp"
                             :src="tattoo.AfterImage.url"
@@ -141,18 +155,19 @@
         </div>
         <div class="mt-20">
             <NuxtLink
-                v-for="artist in artists.data"
+                v-for="artist in artists?.data"
+                v-if="artist?.slug"
                 :to="`${localePath(`/tattoos/${artist.slug}`)}`"
                 class="title-md text-white group hover:text-black"
             >
                 <div
                     class="border-b-2 border-white py-4 relative text-center hover:bg-white group relative"
                 >
-                    {{ artist.Name }}
+                    {{ artist?.Name }}
                 </div>
             </NuxtLink>
             <button
-                v-if="artistsLoaded.length < artists.data.length"
+                v-if="artistsLoaded?.length < artists?.data?.length"
                 @click="loadMore"
             >
                 Load More
@@ -160,24 +175,30 @@
         </div>
     </section>
 
-    <Faqs :faqs="tattoo.tattoo_faq.faqsList" />
+    <Faqs
+        v-if="tattoo?.tattoo_faq?.faqsList"
+        :faqs="tattoo.tattoo_faq.faqsList"
+    />
 
     <section class="py-20 overflow-hidden">
-        <h2 class="title-full">
+        <h2 class="title-full" v-if="tattoo?.ADNTitle">
             {{ tattoo.ADNTitle }}
         </h2>
-        <h3 class="title-full">{{ tattoo.ADNSubtitle }}</h3>
+        <h3 class="title-full" v-if="tattoo?.ADNSubtitle">{{
+            tattoo.ADNSubtitle
+        }}</h3>
 
         <div
             class="flex flex-col md:flex-row gap-10 container-xl mt-20 justify-center items-center"
         >
             <div
-                v-for="member in tattoo.Team"
+                v-for="member in tattoo?.Team"
+                :key="member?.id"
                 class="first:bg-yellow last:bg-green last:text-white p-3"
             >
                 <div class="w-full aspect-[624/417]">
                     <NuxtImg
-                        v-if="member.Photo"
+                        v-if="member?.Photo?.url"
                         provider="strapi"
                         format="webp"
                         class="w-full aspect-[210/297] object-cover"
@@ -187,9 +208,15 @@
                 <div
                     class="flex flex-col items-center text-center px-5 py-5 md:py-10"
                 >
-                    <h4 class="title-md">{{ member.Name }}</h4>
-                    <div class="text-teaser">{{ member.Role }}</div>
-                    <p class="text-body mt-5 md:mt-10">{{ member.Bio }}</p>
+                    <h4 class="title-md" v-if="member?.Name">{{
+                        member.Name
+                    }}</h4>
+                    <div class="text-teaser" v-if="member?.Role">{{
+                        member.Role
+                    }}</div>
+                    <p class="text-body mt-5 md:mt-10" v-if="member?.Bio">{{
+                        member.Bio
+                    }}</p>
                 </div>
             </div>
         </div>

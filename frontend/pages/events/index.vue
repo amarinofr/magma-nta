@@ -147,7 +147,12 @@
         </div>
     </section>
 
-    <Faqs :faqs="events[0].events_faqs.faqsList" />
+    <Faqs
+        v-if="
+            events[0] && events[0].events_faqs && events[0].events_faqs.faqsList
+        "
+        :faqs="events[0].events_faqs.faqsList"
+    />
 
     <MainFooter></MainFooter>
 </template>

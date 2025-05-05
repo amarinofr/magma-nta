@@ -1,6 +1,7 @@
 <template>
     <section
-        class="bg-gray justify-center flex flex-col items-center pb-20 py-10">
+        class="bg-gray justify-center flex flex-col items-center pb-20 py-10"
+    >
         <h2 v-if="locale === 'en'" class="title-full">
             Frequently Asked Questions
         </h2>
@@ -9,10 +10,12 @@
             <div
                 v-for="(faq, index) in props.faqs"
                 :key="index"
-                class="border-b-2 border-black">
+                class="border-b-2 border-black"
+            >
                 <h3
                     @click="toggleAccordion(index)"
-                    class="text-lg px-2 flex gap-2 cursor-pointer py-5 title-lg normal-case tracking-[0em] leading-[1.5]">
+                    class="text-lg px-2 flex gap-2 cursor-pointer py-5 title-lg normal-case tracking-[0em] leading-[1.5]"
+                >
                     <span class="h-full">{{ index + 1 }}.</span>
                     <span>{{ faq.Question }}?</span>
                 </h3>

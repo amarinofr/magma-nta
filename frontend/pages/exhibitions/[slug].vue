@@ -38,7 +38,7 @@
                         :key="obra.id"
                     >
                         <NuxtImg
-                            v-if="obra.Image.url"
+                            v-if="obra.Image"
                             provider="strapi"
                             format="webp"
                             @click="openPopup(obra.id)"
@@ -56,7 +56,7 @@
                                 class="flex flex-col md:flex-row justify-between h-full items-center"
                             >
                                 <NuxtImg
-                                    v-if="obra.Image.url"
+                                    v-if="obra.Image"
                                     provider="strapi"
                                     format="webp"
                                     class="w-full md:w-1/2 h-full object-cover"
