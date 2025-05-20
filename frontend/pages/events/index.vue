@@ -67,7 +67,7 @@
                         />
 
                         <span v-for="category in event.event_categories">
-                            {{ category.tag }}
+                            {{ category.TagName }}
                         </span>
                     </div>
                     <div class="text-center aspect-[492/701]">
